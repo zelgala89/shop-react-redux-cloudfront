@@ -19,10 +19,20 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
+      - name: Run Tests
+        run: |
+          vitest --reporter=junit --outputFile=test-report.junit.xml
+
+      - name: Run coverage
         run: npx vitest run --coverage
 
       - name: Upload results to Codecov
         uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
