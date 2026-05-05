@@ -19,11 +19,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Tests
-        run: npx vitest --reporter=junit --outputFile=test-report.junit.xml
-
-      - name: Run coverage
-        run: npx vitest run --coverage
+      - name: Run Tests & Coverage
+        run: npx vitest run --coverage --reporter=junit --outputFile=test-report.junit.xml
 
       - name: Upload results to Codecov
         uses: codecov/codecov-action@v5
